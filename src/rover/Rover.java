@@ -4,11 +4,13 @@ public class Rover {
     private String nom;
     private Position position;
     private Direction direction;
+    private Map map;
 
-    public Rover(String nom, Position position){
+    public Rover(String nom, Position position, Direction direction, Map map){
         this.nom = nom;
         this.position = position;
-        this.direction = Direction.NORD;
+        this.direction = direction;
+        this.map = map;
     }
 
     public String getNom(){
@@ -57,27 +59,31 @@ public class Rover {
         }
     }
 
-    public void avancer(Map map) {
+    public void move() {
         switch (this.direction) {
-            case NORD:
-                if (this.position.getY() < map.getHeight() - 1) {
-                    this.position = new Position(this.position.getX(), this.position.getY() + 1);
-                }
+            case EST:
+                int nouvellePositionE = (this.position.getY() + 1) % map.getWidth();
+                this.position.setY(nouvellePositionE);
                 break;
             case SUD:
-                if (this.position.getY() > 0) {
-                    this.position = new Position(this.position.getX(), this.position.getY() - 1);
+                if(this.position.getX() == 0){
+                    this.position.setX(map.getHeight() - 1);
                 }
-                break;
-            case EST:
-                if (this.position.getX() < map.getWidth() - 1) {
-                    this.position = new Position(this.position.getX() + 1, this.position.getY());
+                else {
+                    int nouvellePositionS = map.getHeight() - 1 - ((this.position.getX() - 1) % map.getHeight());
+                    this.position.setX(nouvellePositionS);
                 }
-                break;
             case OUEST:
-                if (this.position.getX() > 0) {
-                    this.position = new Position(this.position.getX() - 1, this.position.getY());
+                if(this.position.getY() == 0){
+                    this.position.setY(map.getWidth() - 1);
                 }
+                else {
+                    int nouvellePositionO = (this.position.getY() - 1) % map.getWidth();
+                    this.position.setY(nouvellePositionO);
+                }
+            case NORD:
+                int nouvellePositionN = map.getHeight() - 1 - ((this.position.getX() + 1) % map.getHeight());
+                this.position.setX(nouvellePositionN);
                 break;
         }
     }
