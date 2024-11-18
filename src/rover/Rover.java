@@ -73,6 +73,7 @@ public class Rover {
                     int nouvellePositionS = map.getHeight() - 1 - ((this.position.getX() - 1) % map.getHeight());
                     this.position.setX(nouvellePositionS);
                 }
+                break;
             case OUEST:
                 if(this.position.getY() == 0){
                     this.position.setY(map.getWidth() - 1);
@@ -81,6 +82,7 @@ public class Rover {
                     int nouvellePositionO = (this.position.getY() - 1) % map.getWidth();
                     this.position.setY(nouvellePositionO);
                 }
+                break;
             case NORD:
                 int nouvellePositionN = map.getHeight() - 1 - ((this.position.getX() + 1) % map.getHeight());
                 this.position.setX(nouvellePositionN);
